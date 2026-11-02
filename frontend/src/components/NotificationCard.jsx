@@ -1,0 +1,7 @@
+import { Bell, BookOpen, Check, ClipboardCheck, Leaf, MessageCircle, ShieldCheck, Sparkles, Trash2, Trophy } from 'lucide-react';
+const iconMap={'Quest updates':TargetIcon,'Activity verification':ClipboardCheck,'Learning':BookOpen,'Achievements & XP':Trophy,'Community':MessageCircle,'Platform announcements':Bell,'New activity submissions':ClipboardCheck,'Pending verification':ShieldCheck,'Farmer resubmissions':MessageCircle,'Review status updates':Check};
+function TargetIcon(){return <Leaf size={17}/>;}
+export default function NotificationCard({ notification, onRead, onDelete }) {
+  const Icon=iconMap[notification.category]||Sparkles;const date=new Date(notification.createdAt);
+  return <article className={`notification-card${notification.read?' is-read':' is-unread'}`}><span className="notification-icon"><Icon size={17}/></span><div className="notification-copy"><div className="notification-card-heading"><strong>{notification.title}</strong><span className="notification-category">{notification.category}</span></div><p>{notification.message}</p><time dateTime={notification.createdAt}>{date.toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'})}</time></div><div className="notification-card-actions">{!notification.read&&<button type="button" aria-label={`Mark ${notification.title} as read`} onClick={onRead}><Check size={15}/></button>}<button type="button" aria-label={`Delete ${notification.title}`} onClick={onDelete}><Trash2 size={15}/></button></div></article>;
+}
